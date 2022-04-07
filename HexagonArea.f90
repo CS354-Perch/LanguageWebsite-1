@@ -8,7 +8,7 @@ PROGRAM  HexagonArea
 
     WRITE(*,*)  'Enter one side of the trapezoid : '
     READ(*,*)    sideLength
-    Input = 3
+    input = 3
     n = SQRT(input)
     n = (n * 3)/2
     area = (sideLength**2) * n
