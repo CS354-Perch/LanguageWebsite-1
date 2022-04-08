@@ -15,5 +15,4 @@ To compile, first download the right compiler from
 https://gcc.gnu.org/wiki/GFortranBinaries#Linux
 
 On the Onyx server, you can run on the command line:
-$gfortran --free-fortran -c quick.f90 quick_module.f90
-$gfortran 
+$gfortran -o quicksort quick.f90 quick_module.f90
