@@ -1,3 +1,7 @@
+!Matt Mecham - CS354
+!Main program of my quicksort algorithm
+!Uses my QuickAlg module to call subroutines which "divide and conquer" the array
+!Details in your CS321 book page 170 :)
 program main
     USE QuickAlg !Tells compiler to use this module. Kind of like a .h file
     IMPLICIT NONE !Overrides implicit datatypes from the olden days
