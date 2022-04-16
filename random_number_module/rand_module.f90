@@ -5,8 +5,8 @@
 !range of array length
 MODULE rand_module
 
-contains
-    subroutine randomize_indices(array)
+CONTAINS
+    SUBROUTINE randomize_indices(array)
         INTEGER, DIMENSION(:), INTENT(INOUT) :: array !Declare the parameter to be used and modified within the subroutine
         INTEGER array_size, num, flag
 
@@ -21,16 +21,16 @@ contains
                 flag = -1 !switch the flag
 
                 DO j = 1, i !Iterate over the array from j to i
-                    if (array(j) == num) then !if there is a match
+                    IF (array(j) == num) THEN !if there is a match
                         flag = 1 !Set the flag again to initiate the while loop and generate a new random value
                         EXIT
-                    end if
+                    END IF
                 END DO
             END DO
 
-            if(flag == -1) then !Then we have successfully found a non-dupe value
+            IF (flag == -1) THEN !Then we have successfully found a non-dupe value
                 array(i) = num !Store the number in the array index
-                end if
+                END IF
         END DO
-    end subroutine
+    END SUBROUTINE
 END MODULE
