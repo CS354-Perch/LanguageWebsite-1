@@ -1,0 +1,17 @@
+Hello Best Team
+
+This little module has a subroutine in it called
+
+randomize_indices(array)
+
+It takes an ONE DIMENSIONAL array and will populate its indices with random integers
+The range of the integers will be from 1 to the size of the array. So, if the array 
+is size 20, then the range of numbers in the indices will be 1 through 20. There are
+no duplcate numbers in the array. Example:
+
+INTEGER, DIMENSION(10) :: A3
+
+CALL randomize_indices(A3)
+
+Now A3 will have its indices full with non-duplicate, random ints in the range of 1 through 10.
+Enjoy!
