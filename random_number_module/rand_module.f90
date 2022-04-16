@@ -30,7 +30,7 @@ CONTAINS
 
             IF (flag == -1) THEN !Then we have successfully found a non-dupe value
                 array(i) = num !Store the number in the array index
-                END IF
+            END IF
         END DO
     END SUBROUTINE
 END MODULE
