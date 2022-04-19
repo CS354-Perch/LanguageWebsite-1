@@ -5,10 +5,29 @@
 !range of array length
 MODULE rand_module
 
+IMPLICIT NONE
+
 CONTAINS
+
+    !Routine to make a copy of an array
+    SUBROUTINE copy_array(a1, a2)
+        INTEGER, DIMENSION(:), INTENT(IN) :: a1
+        INTEGER, DIMENSION(:), ALLOCATABLE, INTENT(INOUT) :: a2
+        INTEGER i, num_size
+
+        num_size = size(a1)
+        ALLOCATE(A2(num_size))
+
+        DO i = 1, size(a1)
+            a2(i) = a1(i)
+        END DO
+    END SUBROUTINE
+
+    !Routine to populate an array with random ints ranging from 1 to array size
     SUBROUTINE randomize_indices(array)
         INTEGER, DIMENSION(:), INTENT(INOUT) :: array !Declare the parameter to be used and modified within the subroutine
-        INTEGER array_size, num, flag
+        INTEGER array_size, num, flag, i, j
+        REAL r
 
         array_size = SIZE(array) !Store the size of the array
 
