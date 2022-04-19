@@ -1,9 +1,10 @@
 program quiz
-implicit none
 
 ! External modules that contain subroutines that can be called
 USE rand_module
 USE read_quiz
+
+implicit none
 
 ! This will be used when the user is supposed to type a letter
 character (len=1) :: input
@@ -33,7 +34,7 @@ integer, dimension (15) :: questionOrder
 call randomize_indices(questionOrder)
 
 !Call subroutine to read from data file and populate two ararys: one with the question, the other with answers
-call read_quiz(questions, yearAnswers)
+call read_questions(questions, yearAnswers)
 ! Convert file into two arrays
 
 !questions(1) = 'In what year did the Magna Carta get signed?'
