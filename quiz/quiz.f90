@@ -226,12 +226,15 @@ subroutine normalMode(questions, yearAnswers, questionOrder)
         !RS = range start
         !RE = range end
         !AC = already correct
-        integer CI, WI1, WI2, WI3, CC, WC1, WC2, WC3, RS, RE, AC, INPUT
+        integer CI, WI1, WI2, WI3, CC, WC1, WC2, WC3, RS, RE, AC, INPUT, TC
         integer, dimension(4) :: choices
         character(len=75), dimension(15) :: questions
-        integer, dimension (15) :: yearAnswers, questionOrder
+        integer, dimension (15) :: yearAnswers, questionOrder, questionsToAsk
 
-
+        !total correct counter
+        TC = 0
+        !num questions
+        questionsToAsk = 15
         Print *, 'Type 0 at any time to exit the program'
         do i = 1, 15
         RS = 1
@@ -265,6 +268,7 @@ subroutine normalMode(questions, yearAnswers, questionOrder)
         read *, INPUT
         IF (INPUT == CI) THEN
                 Print *, 'That is so right!'
+                TC = TC+1
         ELSE IF (INPUT == 0) THEN
                 Print *, 'Goodbye!'
                 EXIT
@@ -272,6 +276,7 @@ subroutine normalMode(questions, yearAnswers, questionOrder)
                 Print *, 'That is so wrong...'
         END IF
         end do
+        Print *, 'You got ',TC,'/',questionsToAsk,' correct.'
 end subroutine normalMode
 
 subroutine randomNumberFromRange(RS, RE, CI)
