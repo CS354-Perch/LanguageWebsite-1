@@ -72,7 +72,7 @@ questionOrder(15) = 1
 ! nested do loops for "restart" option
 big: do
    do i = 0, 0
-     print *, "Press ‘q’ to take the quiz or press ‘s’ to study first. (You can press ‘0’ at any time to exit the program)"
+     Print *, 'Press (q) to take the quiz or press (s) to study first. You can press (0) at any time to exit the program.' 
      Read(*,*) input
 
      If (input == '0') then
@@ -80,7 +80,7 @@ big: do
         call EXIT(0)
 
      else if (input == 's') then
-     !       CALL studyMode()
+            CALL studyMode(questions, yearAnswers)
 
      else if (input == 'q') then
         Print *, 'Would you like easy mode (e), normal mode (n), or hard mode (h)?'
@@ -105,10 +105,59 @@ big: do
 end do big
 end program quiz
 
-subroutine studyMode()
+subroutine studyMode(questions, yearAnswers)
 Implicit none
-!TODO
+
+Integer :: i
+Character (len = 1) :: input
+character(len=75), dimension(15), intent(in) :: questions
+integer, dimension(15), intent(in) :: yearAnswers
+LOGICAL :: onQuestion
+onQuestion = .TRUE.
+
+
+Print *, 'Questions will be presented in a flash-card format. Press (f) to flip the card and see the correct answer and (n)'
+Print *, 'to go to the next card. There will be a total of 15 questions.'
+Print *, ''
+
+do i = 1, 15
+    onQuestion = .TRUE.
+    Print *, questions(i)
+    Read(*,*) input
+    do while(input /= 'n')  
+        If (input == 'f') then
+            CALL studyQuestion(onQuestion, i, questions, yearAnswers)
+            Read(*,*) input
+        else
+            Print*, 'That is not a valid character.'
+            Read(*,*) input
+        end if
+    end do
+end do
+
 end subroutine studyMode
+
+
+
+subroutine studyQuestion(onQuestion, i, questions, yearAnswers)
+Implicit none
+
+LOGICAL :: onQuestion
+character(len=75), dimension(15), intent(in) :: questions
+integer, dimension(15), intent(in) :: yearAnswers
+integer :: i
+
+if (onQuestion) then
+    Print *, yearAnswers(i)
+    onQuestion = .FALSE.
+else 
+    Print *, questions(i)
+    onQuestion = .TRUE.
+end if
+
+end subroutine studyQuestion
+
+
 
 subroutine easyMode(questions, yearAnswers, questionOrder)
 implicit none
