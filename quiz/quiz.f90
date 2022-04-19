@@ -7,6 +7,13 @@ character (len=1) :: input
 ! This will be used when the user is supposed to type a number
 integer :: answer, i
 
+! Array for descriptions that are used in study mode
+character(len=75), dimension(15) :: descriptions
+
+! Array for extended descriptions that are used in study mode
+! Had to create a new array so to bypass max 75 character output limit
+character(len=75), dimension(15) :: extendedDescription
+
 ! Question array
 character(len=75), dimension(15) :: questions
 
@@ -68,6 +75,39 @@ questionOrder(13) = 7
 questionOrder(14) = 14
 questionOrder(15) = 1
 
+! Building the array for descriptions and extendedDescriptions
+
+descriptions(1) = 'First document to put into writing the principle that the king and'
+extendedDescription(1) = 'his government was not above the law.'
+descriptions(2) = 'The confiscation of the English-held duchy of Guyenne by French King Philip'
+extendedDescription(2) = 'VI.'
+descriptions(3) = 'Discovery of the New World of the Americas on board his ship Santa Maria.'
+extendedDescription(3) = 'Which, was the biggest ship out of the three used'
+descriptions(4) = 'A fleet of Spanish ships led by Spanish commander Medina Sidonia with'
+extendedDescription(4) = 'the purpose of overthrowing Queen Elizabeth I.'
+descriptions(5) = 'Seven Years War is a global conflict which ran from 1756 until 1763, it'
+extendedDescription(5) = 'made a coalition of Great Britain and allies against France and its allies.'
+descriptions(6) = 'The French Revolution began in 1789 and lasted until 1794. King Louis XVI'
+extendedDescription(6) = 'needed money, but had failed to raise taxes when he had called a meeting.'
+descriptions(7) = 'The assassination of Austrian Archduke Franz Ferdinand (June 28, 1914) was'
+extendedDescription(7) = 'the main catalyst for the start of the Great War (World War I).'
+descriptions(8) = 'Napoleons forces were crushed in the morning of June 18th 1815, ending 23'
+extendedDescription(8) = 'years of recurrent warfare between France and the other powers of Europe.'
+descriptions(9) = 'For centuries tsars ruled Russia. This period came to an end during the'
+extendedDescription(9) = 'Russian revolution of 1917.'
+descriptions(10) = 'USSR was Founded in 1922 as a confederation of Russia, Belarus, Ukraine,'
+extendedDescription(10) = 'and Transcaucasia. The USSR eventually grew to 15 republics.'
+descriptions(11) = 'The Depression was the longest and deepest downturn in the history of the'
+extendedDescription(11) = 'US. The Great Depression began in August 1929.'
+descriptions(12) = 'WW2 was a global war that lasted from 1939 to 1945. It involved the vast'
+extendedDescription(12) = 'majority of the worlds countries including all of the great powers'
+descriptions(13) = 'The USSR rocketed to the lead in the Cold Wars "Space Race" with the launch'
+extendedDescription(13) = 'of Sputnik on October 4, 1957.'
+descriptions(14) = 'On July 20, 1969, American astronauts Neil Armstrong and Edwin Aldrin,'
+extendedDescription(14) = 'became the first humans ever to land on the moon.'
+descriptions(15) = 'On December 26, 1991, the process of internal disintegration within the'
+extendedDescription(15) = 'Soviet Union (USSR) which ended its existence as a sovereign state.'
+
 ! Do you want to take the quiz or study first?
 ! nested do loops for "restart" option
 big: do
@@ -80,7 +120,7 @@ big: do
         call EXIT(0)
 
      else if (input == 's') then
-            CALL studyMode(questions, yearAnswers)
+            CALL studyMode(questions, yearAnswers, descriptions, extendedDescription)
 
      else if (input == 'q') then
         Print *, 'Would you like easy mode (e), normal mode (n), or hard mode (h)?'
@@ -105,19 +145,24 @@ big: do
 end do big
 end program quiz
 
-subroutine studyMode(questions, yearAnswers)
+subroutine studyMode(questions, yearAnswers, descriptions, extendedDescription)
 Implicit none
 
 Integer :: i
 Character (len = 1) :: input
 character(len=75), dimension(15), intent(in) :: questions
+character(len=75), dimension(15), intent(in) :: descriptions
+character(len=75), dimension(15), intent(in) :: extendedDescription
 integer, dimension(15), intent(in) :: yearAnswers
 LOGICAL :: onQuestion
 onQuestion = .TRUE.
 
 
-Print *, 'Questions will be presented in a flash-card format. Press (f) to flip the card and see the correct answer and (n)'
-Print *, 'to go to the next card. There will be a total of 15 questions.'
+Print *, 'Questions will be presented in a flash-card format.'
+Print *, 'Press (f) to flip the card and see the correct answer.'
+Print *, 'Press (n) to go to the next card.'
+Print *, 'Press (e) at any time to end the study session.'
+Print *, 'There will be a total of 15 questions.'
 Print *, ''
 
 do i = 1, 15
@@ -126,8 +171,10 @@ do i = 1, 15
     Read(*,*) input
     do while(input /= 'n')  
         If (input == 'f') then
-            CALL studyQuestion(onQuestion, i, questions, yearAnswers)
+            CALL studyQuestion(onQuestion, i, questions, yearAnswers, descriptions, extendedDescription)
             Read(*,*) input
+        else if(input == 'e') then
+                CALL EXIT(0)
         else
             Print*, 'That is not a valid character.'
             Read(*,*) input
@@ -139,16 +186,21 @@ end subroutine studyMode
 
 
 
-subroutine studyQuestion(onQuestion, i, questions, yearAnswers)
+subroutine studyQuestion(onQuestion, i, questions, yearAnswers, descriptions, extendedDescription)
 Implicit none
 
 LOGICAL :: onQuestion
 character(len=75), dimension(15), intent(in) :: questions
+character(len=75), dimension(15), intent(in) :: descriptions
+character(len=75), dimension(15), intent(in) :: extendedDescription
 integer, dimension(15), intent(in) :: yearAnswers
+integer, dimension(15) :: j
 integer :: i
 
 if (onQuestion) then
     Print *, yearAnswers(i)
+    Print *, descriptions(i)
+    Print *, extendedDescription(i)
     onQuestion = .FALSE.
 else 
     Print *, questions(i)
