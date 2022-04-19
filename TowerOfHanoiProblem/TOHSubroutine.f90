@@ -1,6 +1,13 @@
-MODULE TowerOfHanoi
+PROGRAM TOHMain
       IMPLICIT NONE
-CONTAINS
+
+      INTEGER :: n
+
+      WRITE(*,*) 'Enter number of disks: '
+      READ(*,*) n
+
+      CALL toh(n,'A','C','B')
+END PROGRAM TOHMain
 
 RECURSIVE SUBROUTINE toh( n, ft, et, at )
       INTEGER, INTENT(IN) :: n
@@ -20,5 +27,3 @@ RECURSIVE SUBROUTINE toh( n, ft, et, at )
       CALL toh(m,at,et,ft)
 
 END SUBROUTINE toh
-
-END MODULE TowerOfHanoi
