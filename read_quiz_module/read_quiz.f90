@@ -8,7 +8,7 @@ CONTAINS
     SUBROUTINE read_questions(A1, A2)
         IMPLICIT NONE
         CHARACTER*128, DIMENSION(:), ALLOCATABLE, INTENT(INOUT) :: A1 !Declares that A1 param is an array, is going to be dynamic, and has read/write permissions
-        CHARACTER*128, DIMENSION(:), ALLOCATABLE, INTENT(INOUT) :: A2 !Same as A1
+        INTEGER, DIMENSION(:), ALLOCATABLE, INTENT(INOUT) :: A2 !Same as A1
         character*128 :: string !Assumes no line in file is longer than 128 chars. Fortran strings are as bad as C
         INTEGER :: file_id = 1 !Fortran uses integer values to refer to files. Calling it file_id and assigning it 1 makes it more readable
         INTEGER :: read_error = 0 !Fortran uses a flag when reading files for errors. If it encounters an error when reading, it will assign
@@ -35,7 +35,7 @@ CONTAINS
             IF (MODULO(i, 2) == 1) THEN
                 READ(file_id,'(A)') A1(i/2 + 1) !read(<file id #>, <format>) variable - In this case, '(A)' tells it to read character*n - basically, the end of the line
             ELSE
-                READ(file_id,'(A)') A2(i/2)
+                READ(file_id, *) A2(i/2)
             END IF
         END DO
 
