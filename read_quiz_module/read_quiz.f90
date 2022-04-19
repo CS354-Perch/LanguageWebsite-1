@@ -35,7 +35,7 @@ CONTAINS
             IF (MODULO(i, 2) == 1) THEN
                 READ(file_id,'(A)') A1(i/2 + 1) !read(<file id #>, <format>) variable - In this case, '(A)' tells it to read character*n - basically, the end of the line
             ELSE
-                READ(file_id, *) A2(i/2)
+                READ(file_id, *) A2(i/2) !The format specifier here, *, states "Read until first whitespace or end of line*. It auto type casts to int since that is what the array is
             END IF
         END DO
 
