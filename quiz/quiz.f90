@@ -141,7 +141,7 @@ big: do
      else if (input == 'n') then
         CALL normalMode(questions, yearAnswers, questionOrder)
      else if (input == 'h') then
-        CALL hardMode()
+        CALL hardMode(questions, yearAnswers, questionOrder)
         End if
      else
         Print *, 'That is an invalid option. Please restart the program and try again.'
@@ -310,17 +310,95 @@ end do
 
 end subroutine easyModeAnswers
 
-subroutine hardMode()
-Implicit none
-!TODO
+subroutine hardMode(questions, yearAnswers, questionOrder)
+    implicit none
+        !CI = Correct Index
+        !TC = Total Correct
+        character(len=75), dimension(15), intent(in) :: questions
+        integer, dimension(15), intent(in) :: yearAnswers
+        integer, dimension(15), intent(in) :: questionOrder
+        integer :: questionsToAsk, CI, TC, i, INPUT
+
+        questionsToAsk = 15
+        TC = 0
+
+        do i = 1, questionsToAsk
+            Print *, 'Type 0 at any time to exit the program'
+            Print *, questions(questionOrder(i))
+            CALL easyModeAnswers(questionOrder(i), CI, questions, yearAnswers, questionOrder)
+            Print *, 'Please type a number 1-4 according to your answer: '
+            Read *, INPUT
+            if (INPUT==CI) then
+                Print *, ' '
+                TC = TC+1
+            else if (INPUT==0) then
+                Print *, 'Goodbye!'
+                exit
+            else
+                Print *, ' '
+            end if
+        end do
+        Print *, 'You got ',TC,'/',questionsToAsk,' correct.'
 end subroutine hardMode
 
 
-subroutine hardModeAnswers()
-Implicit none
-!TODO
+subroutine hardModeAnswers(qIndex, correct, questions, yearAnswers, questionOrder)
+    implicit none
+    character(len=75), dimension(15), intent(in) :: questions
+    integer, dimension(15), intent(in) :: yearAnswers
+    integer, dimension(15), intent(in) :: questionOrder
+    integer, intent(in) :: qIndex !index of the question being asked is the parameter
+    !arrays for answers to be printed and the indexes of the answers
+    integer, dimension(4) :: answers, indexes
+    integer :: flag, index, correct, i, j
+    real :: r
+
+    indexes(1)=qIndex !store the index of the correct answer
+! ----------edit this part to return three dates closest to correct answer
+    do i=2, 4 !generate random wrong indexes
+            flag=1
+            do while (flag ==1)
+                call random_number(r)
+                index = (r*15)+1
+                flag = 0
+                do j=1,i
+                    if (indexes(j)==index) then
+                        flag=1
+                        exit
+                    end if
+                end do
+            end do
+            if (flag==0) then
+                indexes(i)=index
+            end if
+        end do
+  ! ----------edit this part to return three dates closest to correct answer
+        do i=1, 4 !put answers in random order and store correct answer in correct
+            flag=1
+            do while(flag==1)
+                call random_number(r)
+                index = (r*4)+1
+                flag = 0
+                do j=1,4
+                    if(answers(j)==yearAnswers(indexes(index))) then
+                        flag=1
+                        exit
+                    end if
+                end do
+            end do
+        if (flag==0) then
+            answers(i) = yearAnswers(indexes(index))
+            if(i==1) then
+                correct = index
+            end if
+        end if
+    end do
+    do i=1, 4
+        Print *, i,':',answers(i)
+    end do
 
 end subroutine hardModeAnswers
+
 
 ! —---------------------------------------------------------------------------------------------- !
 
