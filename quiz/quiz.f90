@@ -276,7 +276,7 @@ subroutine normalMode(questions, yearAnswers, questionOrder)
                 Print *, 'That is so wrong...'
         END IF
         end do
-        Print *, 'You got ',TC,'/',questionsToAsk,' correct.'
+        Print *, 'You got ',TC,'/',15,' correct.'
 end subroutine normalMode
 
 subroutine randomNumberFromRange(RS, RE, CI)
