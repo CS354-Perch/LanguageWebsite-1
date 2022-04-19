@@ -7,5 +7,6 @@
 `$ <OutputFile>`
 
 Example output:
+
 ![image](https://user-images.githubusercontent.com/89420452/164070832-b0e0d371-e63d-4769-9b0a-98fa03f20d29.png)
 
