@@ -1,4 +1,4 @@
-PROGRAM TOHMain
+PROGRAM TOHSubroutine
       IMPLICIT NONE
 
       INTEGER :: n
@@ -7,7 +7,7 @@ PROGRAM TOHMain
       READ(*,*) n
 
       CALL toh(n,'A','C','B')
-END PROGRAM TOHMain
+END PROGRAM TOHSubroutine
 
 RECURSIVE SUBROUTINE toh( n, ft, et, at )
       INTEGER, INTENT(IN) :: n
@@ -27,3 +27,4 @@ RECURSIVE SUBROUTINE toh( n, ft, et, at )
       CALL toh(m,at,et,ft)
 
 END SUBROUTINE toh
+
