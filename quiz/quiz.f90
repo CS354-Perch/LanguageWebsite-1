@@ -1,6 +1,10 @@
 program quiz
 implicit none
 
+! External modules that contain subroutines that can be called
+USE rand_module
+USE read_quiz
+
 ! This will be used when the user is supposed to type a letter
 character (len=1) :: input
 
@@ -15,65 +19,72 @@ character(len=75), dimension(15) :: descriptions
 character(len=75), dimension(15) :: extendedDescription
 
 ! Question array
-character(len=75), dimension(15) :: questions
+!character(len=75), dimension(15) :: questions
+character*128, dimension(:), allocatable :: questions
 
 ! Array of corresponding answers (years)
-integer, dimension (15) :: yearAnswers
+!integer, dimension(15) :: yearAnswers
+integer, dimension (:), allocatable :: yearAnswers
 
 ! Array containing the indices of the questions (order in which questions will be asked)
 integer, dimension (15) :: questionOrder
 
+!Call subroutine from randmodule to randomize non-duplicate ints in an array from 1 to length
+call randomize_indices(questionOrder)
+
+!Call subroutine to read from data file and populate two ararys: one with the question, the other with answers
+call read_quiz(questions, yearAnswers)
 ! Convert file into two arrays
 
-questions(1) = 'In what year did the Magna Carta get signed?'
-questions(2) = 'In what year did the 100 years war between England and France start?'
-questions(3) = 'In what year did Christopher Columbus discover the New World?'
-questions(4) = 'In what year did England defeat the Spanish Armada?'
-questions(5) = 'In what year did the 7 years war start?'
-questions(6) = 'In what year did the (first) French Revolution start?'
-questions(7) = 'In what year did World War 1 start?'
-questions(8) = 'In what year did Napolean get defeated in the Battle of Waterloo?'
-questions(9) = 'In what year did the Russian Revolution end the Tsarist autocracy?'
-questions(10) = 'In what year did the USSR form?'
-questions(11) = 'In what year did the Great Depression start?'
-questions(12) = 'In what year did World War 2 start (in Europe)?'
-questions(13) = 'In what year did Sputnik 1 get launched?'
-questions(14) = 'In what year did Apollo 11 land on the moon?'
-questions(15) = 'In what year did the USSR dissolve?'
+!questions(1) = 'In what year did the Magna Carta get signed?'
+!questions(2) = 'In what year did the 100 years war between England and France start?'
+!questions(3) = 'In what year did Christopher Columbus discover the New World?'
+!questions(4) = 'In what year did England defeat the Spanish Armada?'
+!questions(5) = 'In what year did the 7 years war start?'
+!questions(6) = 'In what year did the (first) French Revolution start?'
+!questions(7) = 'In what year did World War 1 start?'
+!questions(8) = 'In what year did Napolean get defeated in the Battle of Waterloo?'
+!questions(9) = 'In what year did the Russian Revolution end the Tsarist autocracy?'
+!questions(10) = 'In what year did the USSR form?'
+!questions(11) = 'In what year did the Great Depression start?'
+!questions(12) = 'In what year did World War 2 start (in Europe)?'
+!questions(13) = 'In what year did Sputnik 1 get launched?'
+!questions(14) = 'In what year did Apollo 11 land on the moon?'
+!questions(15) = 'In what year did the USSR dissolve?'
 
-yearAnswers(1) = 1215
-yearAnswers(2) = 1337
-yearAnswers(3) = 1492
-yearAnswers(4) = 1588
-yearAnswers(5) = 1757
-yearAnswers(6) = 1789
-yearAnswers(7) = 1815
-yearAnswers(8) = 1914
-yearAnswers(9) = 1917
-yearAnswers(10) = 1922
-yearAnswers(11) = 1929
-yearAnswers(12) = 1939
-yearAnswers(13) = 1957
-yearAnswers(14) = 1969
-yearAnswers(15) = 1991
+!yearAnswers(1) = 1215
+!yearAnswers(2) = 1337
+!yearAnswers(3) = 1492
+!yearAnswers(4) = 1588
+!yearAnswers(5) = 1757
+!yearAnswers(6) = 1789
+!yearAnswers(7) = 1815
+!yearAnswers(8) = 1914
+!yearAnswers(9) = 1917
+!yearAnswers(10) = 1922
+!yearAnswers(11) = 1929
+!yearAnswers(12) = 1939
+!yearAnswers(13) = 1957
+!yearAnswers(14) = 1969
+!yearAnswers(15) = 1991
 
 ! Build array consisting of random numbers
 
-questionOrder(1) = 5
-questionOrder(2) = 8
-questionOrder(3) = 11
-questionOrder(4) = 3
-questionOrder(5) = 12
-questionOrder(6) = 6
-questionOrder(7) = 2
-questionOrder(8) = 13
-questionOrder(9) = 1
-questionOrder(10) = 15
-questionOrder(11) = 10
-questionOrder(12) = 9
-questionOrder(13) = 7
-questionOrder(14) = 14
-questionOrder(15) = 1
+!questionOrder(1) = 5
+!questionOrder(2) = 8
+!questionOrder(3) = 11
+!questionOrder(4) = 3
+!questionOrder(5) = 12
+!questionOrder(6) = 6
+!questionOrder(7) = 2
+!questionOrder(8) = 13
+!questionOrder(9) = 1
+!questionOrder(10) = 15
+!questionOrder(11) = 10
+!questionOrder(12) = 9
+!questionOrder(13) = 7
+!questionOrder(14) = 14
+!questionOrder(15) = 1
 
 ! Building the array for descriptions and extendedDescriptions
 
