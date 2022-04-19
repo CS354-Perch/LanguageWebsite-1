@@ -5,7 +5,7 @@ implicit none
 character (len=1) :: input
 
 ! This will be used when the user is supposed to type a number
-integer :: answer
+integer :: answer, i
 
 ! Question array
 character(len=75), dimension(15) :: questions
@@ -69,33 +69,41 @@ questionOrder(14) = 14
 questionOrder(15) = 1
 
 ! Do you want to take the quiz or study first?
+! nested do loops for "restart" option
+big: do
+   do i = 0, 0
+     print *, "Press ‘q’ to take the quiz or press ‘s’ to study first. (You can press ‘0’ at any time to exit the program)"
+     Read(*,*) input
 
-print *, "Press ‘q’ to take the quiz or press ‘s’ to study first. (You can press ‘0’ at any time to exit the program)"
-Read(*,*) input
-
-If (input == '0') then
+     If (input == '0') then
         Print *, 'Thank you for studying with us! Exiting program…'
         call EXIT(0)
 
-else if (input == 's') then
-!       CALL studyMode()
+     else if (input == 's') then
+     !       CALL studyMode()
 
-else if (input == 'q') then
+     else if (input == 'q') then
         Print *, 'Would you like easy mode (e), normal mode (n), or hard mode (h)?'
         Read(*,*) input
-        if (input == 'e') then
-                CALL easyMode(questions, yearAnswers, questionOrder)
-        else if (input == 'n') then
-                CALL normalMode(questions, yearAnswers, questionOrder)
-        else if (input == 'h') then
-                CALL hardMode()
+     if (input == 'e') then
+        CALL easyMode(questions, yearAnswers, questionOrder)
+     else if (input == 'n') then
+        CALL normalMode(questions, yearAnswers, questionOrder)
+     else if (input == 'h') then
+        CALL hardMode()
         End if
-else
+     else
         Print *, 'That is an invalid option. Please restart the program and try again.'
-End if
-
+     End if
+   end do
+   Print *, 'Would you like to restart? (1 for yes, 0 for no)'
+   Read *, input
+   if (input == '0') then
+      Print *, 'Goodbye!'
+      exit big
+   end if
+end do big
 end program quiz
-
 
 subroutine studyMode()
 Implicit none
