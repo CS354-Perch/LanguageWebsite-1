@@ -21,7 +21,7 @@ character(len=75), dimension(15) :: extendedDescription
 
 ! Question array
 !character(len=75), dimension(15) :: questions
-character*128, dimension(:), allocatable :: questions
+character*75, dimension(:), allocatable :: questions
 
 ! Array of corresponding answers (years)
 !integer, dimension(15) :: yearAnswers
