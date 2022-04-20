@@ -40,6 +40,30 @@
 <a href="https://www.tutorialspoint.com/fortran/fortran_tutorial.pdf">Another good introductory tutorial</a>
 <h2> Available Compilers </h2>
 <a href="https://gcc.gnu.org/wiki/GFortranBinaries#Linux">All you need to know about available compilers</a>
+
+<h2> Subprograms in Fortran </h2>
+<p>Fortran does not have methods but instead uses subprograms when parts of 
+   code are going to be reused or are too complicated to deal with in one 
+   program. There are two types of subprograms in Fortran, functions and 
+   subroutines.</p>
+<h3> Functions </h3>
+<p>Functions are used when you need to take input, perform some code, and 
+   return one output value. Functions can be used in assignment statements or 
+   as a parameter to another function. The compiler will evaluate the function 
+   that is a parameter and pass the returned value to the function using it as 
+   a parameter. So, for example, you could easily print the results of a 
+   function by calling print and passing the function that you want to print 
+   the results of. Functions take parameters that are passed by value.</p>
+<h3> Subroutines </h3>
+<p>Subroutines are used when you want to perform code that can “return” 
+   multiple values or manipulate data that you are using in the rest of your 
+   code. Subroutines cannot be used in assignment statements or passed to other
+   subprograms. In order to invoke a subroutine you must use the CALL keyword
+   followed by the subroutine and its parameters. Subroutines use pass by
+   reference for their parameters, meaning if you pass a variable to a
+   subroutine it can change the value of that variable in the subroutine for
+   you to use later in your program.</p>
+
 <h2> Example Programs </h2>
 <a href="https://github.com/CS354-Perch/LanguageWebsite-1">Perch Team Programs</a>
 
