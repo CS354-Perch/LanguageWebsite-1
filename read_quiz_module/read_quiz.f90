@@ -7,9 +7,9 @@ IMPLICIT NONE
 
 CONTAINS
     SUBROUTINE read_questions(A1, A2)
-        CHARACTER*128, DIMENSION(:), ALLOCATABLE, INTENT(INOUT) :: A1
+        CHARACTER*75, DIMENSION(:), ALLOCATABLE, INTENT(INOUT) :: A1
         INTEGER, DIMENSION(:), ALLOCATABLE, INTENT(INOUT) :: A2
-        CHARACTER*128 :: string !Assumes no line in file is longer than 128 chars. Fortran strings are as bad as C
+        CHARACTER*75 :: string !Assumes no line in file is longer than 128 chars. Fortran strings are as bad as C
         INTEGER :: file_id = 1 !Fortran uses integer values to refer to files. Calling it file_id and assigning it 1 makes it more readable
         INTEGER :: read_error = 0 !Fortran uses a flag when reading files for errors. If it encounters an error when reading, it will assign
         INTEGER :: i = 0, num_lines = 0 !Loop variables
