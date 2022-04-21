@@ -300,34 +300,34 @@ end subroutine easyModeAnswers
 !              HARD MODE STARTS HERE
 
 subroutine hardMode(questions, yearAnswers, questionOrder)
-    implicit none
-        !CI = Correct Index
-        !TC = Total Correct
-        character(len=75), dimension(15), intent(in) :: questions
-        integer, dimension(15), intent(in) :: yearAnswers
-        integer, dimension(15), intent(in) :: questionOrder
-        integer :: questionsToAsk, CI, TC, i, INPUT
+   implicit none
+    character(len=75), dimension(15), intent(in) :: questions
+    integer, dimension(15), intent(in) :: yearAnswers
+    integer, dimension(15), intent(in) :: questionOrder
+    integer :: questionsToAsk, CI, TC, i, INPUT
 
-        questionsToAsk = 15
-        TC = 0
-
-        do i = 1, questionsToAsk
-            Print *, 'Type 0 at any time to exit the program'
-            Print *, questions(questionOrder(i))
-            CALL hardModeAnswers(questionOrder(i), CI, questions, yearAnswers, questionOrder)
-            Print *, 'Please type a number 1-4 according to your answer: '
-            Read *, INPUT
-            if (INPUT==CI) then
-                Print *, ' '
-                TC = TC+1
-            else if (INPUT==0) then
-                Print *, 'Goodbye!'
+    questionsToAsk = 15
+    TC = 0
+    do i = 1, questionsToAsk
+        Print *, 'Type 0 at any time to exit the program'
+        Print *, questions(questionOrder(i))
+        CALL hardModeAnswers(questionOrder(i), CI, questions, yearAnswers, questionOrder)
+        Print *, 'Please type a number 1-4 according to your answer: '
+        Read *, INPUT
+        select case (INPUT)
+            case (1,2,3)
+                Print*, ' '
+                if (INPUT==CI) then
+                    TC=TC+1
+                    end if
+            case (0)
+                Print*, 'Goodbye!'
                 exit
-            else
-                Print *, ' '
-            end if
-        end do
-        Print *, 'You got ',TC,'/',questionsToAsk,' correct.'
+            case default
+                Print*, ' '
+        end select
+    end do
+    Print *, 'You got ',TC,'/',questionsToAsk,' correct.'
 end subroutine hardMode
 
 
