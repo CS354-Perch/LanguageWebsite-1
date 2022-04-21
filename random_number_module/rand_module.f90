@@ -11,15 +11,15 @@ CONTAINS
 
     !Routine to make a copy of an array
     SUBROUTINE copy_array(a1, a2)
-        INTEGER, DIMENSION(:), INTENT(IN) :: a1
+        INTEGER, DIMENSION(:), INTENT(IN) :: a1 
         INTEGER, DIMENSION(:), ALLOCATABLE, INTENT(INOUT) :: a2
         INTEGER i, num_size
 
-        num_size = size(a1)
-        ALLOCATE(A2(num_size))
+        num_size = size(a1) !Had to store size() return in an integer var. 
+        ALLOCATE(A2(num_size)) !Fortran didn't like it when I tried to call size() here
 
         DO i = 1, size(a1)
-            a2(i) = a1(i)
+            a2(i) = a1(i) !Makes a deep copy because params were passed by reference
         END DO
     END SUBROUTINE
 
