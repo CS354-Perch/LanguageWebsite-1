@@ -310,6 +310,8 @@ do i=1, 4
 end do
 
 end subroutine easyModeAnswers
+! --------------------------------------------------------------------------------------------------------------------------!
+!              HARD MODE STARTS HERE
 
 subroutine hardMode(questions, yearAnswers, questionOrder)
     implicit none
@@ -326,7 +328,7 @@ subroutine hardMode(questions, yearAnswers, questionOrder)
         do i = 1, questionsToAsk
             Print *, 'Type 0 at any time to exit the program'
             Print *, questions(questionOrder(i))
-            CALL easyModeAnswers(questionOrder(i), CI, questions, yearAnswers, questionOrder)
+            CALL hardModeAnswers(questionOrder(i), CI, questions, yearAnswers, questionOrder)
             Print *, 'Please type a number 1-4 according to your answer: '
             Read *, INPUT
             if (INPUT==CI) then
@@ -354,26 +356,27 @@ subroutine hardModeAnswers(qIndex, correct, questions, yearAnswers, questionOrde
     integer :: flag, index, correct, i, j
     real :: r
 
-    indexes(1)=qIndex !store the index of the correct answer
-! ----------edit this part to return three dates closest to correct answer
-    do i=2, 4 !generate random wrong indexes
-            flag=1
-            do while (flag ==1)
-                call random_number(r)
-                index = (r*15)+1
-                flag = 0
-                do j=1,i
-                    if (indexes(j)==index) then
-                        flag=1
-                        exit
-                    end if
-                end do
+    indexes(1)=qIndex !store the index of the correct answer and get closest 3 answers
+       do i=2, 4
+        flag=1
+        do while (flag == 1)
+            if (qIndex <= 10) then
+                index = qIndex+i
+                else
+                index = qIndex-i
+                end if
+        flag = 0
+             do j=1,i
+                if (indexes(j)==index) then
+                    flag=1
+                    exit
+                end if
             end do
-            if (flag==0) then
-                indexes(i)=index
-            end if
+            end do
+        if (flag==0) then
+            indexes(i)=index
+        end if
         end do
-  ! ----------edit this part to return three dates closest to correct answer
         do i=1, 4 !put answers in random order and store correct answer in correct
             flag=1
             do while(flag==1)
