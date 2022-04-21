@@ -35,60 +35,8 @@ call randomize_indices(questionOrder)
 
 !Call subroutine to read from data file and populate two ararys: one with the question, the other with answers
 call read_questions(questions, yearAnswers)
-! Convert file into two arrays
 
-!questions(1) = 'In what year did the Magna Carta get signed?'
-!questions(2) = 'In what year did the 100 years war between England and France start?'
-!questions(3) = 'In what year did Christopher Columbus discover the New World?'
-!questions(4) = 'In what year did England defeat the Spanish Armada?'
-!questions(5) = 'In what year did the 7 years war start?'
-!questions(6) = 'In what year did the (first) French Revolution start?'
-!questions(7) = 'In what year did World War 1 start?'
-!questions(8) = 'In what year did Napolean get defeated in the Battle of Waterloo?'
-!questions(9) = 'In what year did the Russian Revolution end the Tsarist autocracy?'
-!questions(10) = 'In what year did the USSR form?'
-!questions(11) = 'In what year did the Great Depression start?'
-!questions(12) = 'In what year did World War 2 start (in Europe)?'
-!questions(13) = 'In what year did Sputnik 1 get launched?'
-!questions(14) = 'In what year did Apollo 11 land on the moon?'
-!questions(15) = 'In what year did the USSR dissolve?'
-
-!yearAnswers(1) = 1215
-!yearAnswers(2) = 1337
-!yearAnswers(3) = 1492
-!yearAnswers(4) = 1588
-!yearAnswers(5) = 1757
-!yearAnswers(6) = 1789
-!yearAnswers(7) = 1815
-!yearAnswers(8) = 1914
-!yearAnswers(9) = 1917
-!yearAnswers(10) = 1922
-!yearAnswers(11) = 1929
-!yearAnswers(12) = 1939
-!yearAnswers(13) = 1957
-!yearAnswers(14) = 1969
-!yearAnswers(15) = 1991
-
-! Build array consisting of random numbers
-
-!questionOrder(1) = 5
-!questionOrder(2) = 8
-!questionOrder(3) = 11
-!questionOrder(4) = 3
-!questionOrder(5) = 12
-!questionOrder(6) = 6
-!questionOrder(7) = 2
-!questionOrder(8) = 13
-!questionOrder(9) = 1
-!questionOrder(10) = 15
-!questionOrder(11) = 10
-!questionOrder(12) = 9
-!questionOrder(13) = 7
-!questionOrder(14) = 14
-!questionOrder(15) = 1
-
-! Building the array for descriptions and extendedDescriptions
-
+! Building the arrays for descriptions and extendedDescriptions
 descriptions(1) = 'First document to put into writing the principle that the king and'
 extendedDescription(1) = 'his government was not above the law.'
 descriptions(2) = 'The confiscation of the English-held duchy of Guyenne by French King Philip'
@@ -155,6 +103,44 @@ big: do
       exit big
    end if
 end do big
+! SELECT CASE statement is a Fortran construct that allows the comparison of one variable to a list of values
+! nested select statements are allowed and the can be named just like a DO construct
+!big : do
+ !       do i = 0, 0
+  !          Print *, 'Press (q) to take the quiz or press (s) to study first. You can press (0) at any time to exit the program.'
+   !         Read(*, *) input
+    !        select case (input)
+     !       case ('s')
+      !          CALL studyMode(questions, yearAnswers, descriptions, extendedDescription)
+       !     case ('q')
+        !        Print *, 'Would you like easy mode (e), normal mode (n), or hard mode (h)?'
+         !       Read(*, *) input
+          !      inner : select case (input)
+           !     case ('e')
+            !        call easyMode(questions, yearAnswers, questionOrder)
+             !   case ('n')
+              !      call normalMode(questions, yearAnswers, questionOrder)
+!                case ('h')
+ !                   call hardMode(questions, yearAnswers, questionOrder)
+  !              case default
+   !                 Print *, 'That is an invalid option. Please restart the program and try again.'
+    !                exit
+     !           end select inner
+      !      case ('0')
+       !         Print *, 'Thank you for studying with us! Exiting program…'
+        !        call EXIT(0)
+         !   case default
+          !      Print *, 'That is an invalid option. Please restart the program and try again.'
+!
+ !           end select
+  !      end do
+   !     Print *, 'Would you like to restart? (1 for yes, 0 for no)'
+    !    Read *, input
+     !   if (input == '0') then
+      !      Print *, 'Goodbye!'
+       !     exit big
+        !end if
+!    end do big
 end program quiz
 
 subroutine studyMode(questions, yearAnswers, descriptions, extendedDescription)
