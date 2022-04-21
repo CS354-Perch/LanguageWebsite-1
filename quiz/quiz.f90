@@ -296,6 +296,7 @@ do i=1, 4
 end do
 
 end subroutine easyModeAnswers
+
 ! --------------------------------------------------------------------------------------------------------------------------!
 !              HARD MODE STARTS HERE
 
@@ -315,14 +316,19 @@ subroutine hardMode(questions, yearAnswers, questionOrder)
         Print *, 'Please type a number 1-4 according to your answer: '
         Read *, INPUT
         select case (INPUT)
-            case (1,2,3)
+        !values that variable is compared to must be constants in select cases
+            !valid answers
+            case (1,2,3,4)
                 Print*, ' '
+                !check if correct answer
                 if (INPUT==CI) then
                     TC=TC+1
                     end if
+            !exit case
             case (0)
                 Print*, 'Goodbye!'
                 exit
+            !default case moves to next iteration
             case default
                 Print*, ' '
         end select
