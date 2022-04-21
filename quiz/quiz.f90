@@ -141,6 +141,8 @@ end do big
        !     exit big
         !end if
 !    end do big
+deallocate (questions)
+deallocate (yearAnswers)
 end program quiz
 
 subroutine studyMode(questions, yearAnswers, descriptions, extendedDescription)
