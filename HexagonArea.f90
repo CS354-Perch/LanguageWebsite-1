@@ -17,8 +17,7 @@ PROGRAM  HexagonArea
     n = (n * 3)/2
     area = (sideLength**2) * n
 
-    ! Write will send items to a numbered unit, which can be a
-    screen
+    ! Write will send items to a numbered unit
     WRITE(*,*)  'Entered values:'
     WRITE(*,*)  'One side  = ', sideLength
     WRITE(*,*)
